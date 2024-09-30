@@ -1,32 +1,32 @@
 // this is where we add our business logic for this module
 
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Post } from './post.interface';
+import { IPost } from './post.interface';
 import { CreatePostDto } from './dto/create-post.dto';
 import { v4 as uuid } from 'uuid';
 import { UpdatePostDto } from './dto/update-post.dto';
 
 @Injectable()
 export class PostService {
-  private posts: Post[] = [];
+  private posts: IPost[] = [];
 
   //   create a post
-  public async createPost(postDto: CreatePostDto): Promise<Post> {
-    const post: Post = {
+  public async createPost(postDto: CreatePostDto): Promise<IPost> {
+    const post: IPost = {
       ...postDto,
-      id: uuid as string,
+      id: uuid() as string,
     };
     this.posts.push(post);
     return post;
   }
 
   //   get all posts
-  public async getAllPosts(): Promise<Post[]> {
+  public async getAllPosts(): Promise<IPost[]> {
     return this.posts;
   }
 
   //   get post by Id
-  public async getPostById(id: string): Promise<Post> {
+  public async getPostById(id: string): Promise<IPost> {
     const post = this.posts.find((post) => post.id === id);
     if (!post) {
       throw new NotFoundException(`Post with id ${id} not found`);
@@ -35,7 +35,7 @@ export class PostService {
   }
 
   //   update post
-  public async updatePost(id: string, postDto: UpdatePostDto): Promise<Post> {
+  public async updatePost(id: string, postDto: UpdatePostDto): Promise<IPost> {
     const post = this.posts.find((p) => p.id === id);
     if (!post) {
       throw new NotFoundException(`Post with id ${id} not found`);

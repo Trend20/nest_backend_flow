@@ -10,6 +10,7 @@ import {
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { IPost } from './post.interface';
 
 @Controller('posts')
 export class PostController {
@@ -17,17 +18,17 @@ export class PostController {
 
   //   get all posts
   @Get()
-  public async getAllPosts(): Promise<Post[]> {
+  public async getAllPosts(): Promise<IPost[]> {
     return this.postService.getAllPosts();
   }
   //   get a single post
   @Get('/:id')
-  public async getPostById(@Param('id') id: string): Promise<Post> {
+  public async getPostById(@Param('id') id: string): Promise<IPost> {
     return this.postService.getPostById(id);
   }
   //   create a post
   @Post('/')
-  public async createPost(@Body() postDto: CreatePostDto): Promise<Post> {
+  public async createPost(@Body() postDto: CreatePostDto): Promise<IPost> {
     return this.postService.createPost(postDto);
   }
   //   update a post
@@ -35,7 +36,7 @@ export class PostController {
   public async updatePost(
     @Param('id') id: string,
     @Body() postDto: UpdatePostDto,
-  ): Promise<Post> {
+  ): Promise<IPost> {
     return this.postService.updatePost(id, postDto);
   }
   //   delete a post
