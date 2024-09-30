@@ -7,8 +7,8 @@ import { ormConfig } from '../common/config/ormConfig';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }),
-    PostModule,
     TypeOrmModule.forRoot(ormConfig()),
+    PostModule,
   ],
 })
 export class AppModule {}

@@ -1,3 +1,9 @@
+import { config } from 'dotenv';
+import { join } from 'path';
+
+// Load environment variables from the .env file
+config();
+
 export function ormConfig(): any {
   return {
     type: process.env.TYPEORM_CONNECTION,
